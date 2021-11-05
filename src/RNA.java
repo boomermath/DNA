@@ -1,6 +1,8 @@
-public class RNA extends NucleicAcid {
+public class RNA {
+    Nucleotide[] bases;
+
     RNA(Nucleotide[] bases) {
-        super(bases);
+        this.bases = bases;
     }
 
     public RNA(String sequence) {
@@ -8,17 +10,46 @@ public class RNA extends NucleicAcid {
     }
 
     public RNA(String[] sequence) {
-        super(new Nucleotide[sequence.length]);
+        Nucleotide[] bases = new Nucleotide[sequence.length];
 
         for (int i = 0; i < sequence.length; i++) {
             switch (sequence[i]) {
                 case "A" -> bases[i] = Nucleotide.ADENINE;
-                case "T" -> bases[i] = Nucleotide.THYMINE;
+                case "C" -> bases[i] = Nucleotide.CYTOSINE;
                 case "U" -> bases[i] = Nucleotide.URACIL;
-                case "G" -> bases[i] = Nucleotide.CYTOSINE;
+                case "G" -> bases[i] = Nucleotide.GUANINE;
                 default -> throw new IllegalArgumentException("Base \"" + sequence[i] + "\" is not a valid base in RNA!");
             }
         }
+
+        this.bases = bases;
+        CodonDictionary.init();
+    }
+
+    public RNA reverseComplement() {
+        Nucleotide[] nucleicBases = new Nucleotide[bases.length];
+
+        for (int i = 0; i < this.bases.length; i++) {
+            nucleicBases[i] = bases[i].getInverse();
+        }
+
+        return new RNA(nucleicBases);
+    }
+
+    public String[] synthesizeAminoAcids() {
+        String[] sequence = toString().split("");
+        String[] aminoAcids = new String[bases.length / 3];
+
+        for (int i = 0; i < sequence.length; i += 3) {
+            String key = sequence[i] + sequence[i + 1] + sequence[i + 2];
+            String aminoAcid = CodonDictionary.getAminoAcid(key);
+            aminoAcids[i] = aminoAcid;
+            if (aminoAcid.equals("Stop")) {
+                break;
+            }
+        }
+
+        return aminoAcids;
     }
 
     public DNA toDNA() {

@@ -1,6 +1,8 @@
-public class DNA extends NucleicAcid {
-    DNA(Nucleotide[] dnaBases) {
-        super(dnaBases);
+public class DNA {
+    Nucleotide[] bases;
+
+    DNA(Nucleotide[] bases) {
+        this.bases = bases;
     }
 
     public DNA(String sequence) {
@@ -8,7 +10,7 @@ public class DNA extends NucleicAcid {
     }
 
     public DNA(String[] sequence) {
-        super(new Nucleotide[sequence.length]);
+        this(new Nucleotide[sequence.length]);
 
         for (int i = 0; i < sequence.length; i++) {
             switch (sequence[i]) {
@@ -19,6 +21,16 @@ public class DNA extends NucleicAcid {
                 default -> throw new IllegalArgumentException("Base \"" + sequence[i] + "\" is not a valid base in DNA!");
             }
         }
+    }
+
+    public DNA reverseComplement() {
+        Nucleotide[] nucleicBases = new Nucleotide[bases.length];
+
+        for (int i = 0; i < this.bases.length; i++) {
+            nucleicBases[i] = bases[i].getInverse();
+        }
+
+        return new DNA(nucleicBases);
     }
 
     public RNA toRNA() {
