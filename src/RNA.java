@@ -47,7 +47,7 @@ public class RNA {
         for (int i = 0; i < sequence.length; i += 3) {
             String key = sequence[i] + sequence[i + 1] + sequence[i + 2];
             String aminoAcid = CodonDictionary.getAminoAcid(key);
-            aminoAcids[i] = aminoAcid;
+            aminoAcids[i / 3] = aminoAcid;
             if (aminoAcid.equals("Stop")) {
                 break;
             }
