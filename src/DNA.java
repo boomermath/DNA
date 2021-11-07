@@ -45,4 +45,14 @@ public class DNA {
 
         return new RNA(rnaBases);
     }
+    
+    public String toString() {
+        StringBuilder sequence = new StringBuilder();
+
+        for (Nucleotide base : bases) {
+            sequence.append(base.toString());
+        }
+
+        return sequence.toString();
+    }
 }
