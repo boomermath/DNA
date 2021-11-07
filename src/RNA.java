@@ -39,7 +39,11 @@ public class RNA {
     public String[] synthesizeAminoAcids() {
         String[] sequence = toString().split("");
         String[] aminoAcids = new String[bases.length / 3];
-
+              
+        if (bases.length % 3 != 0) {
+            throw new IllegalArgumentException("RNA sequence is not in codons of 3!");
+        }
+        
         for (int i = 0; i < sequence.length; i += 3) {
             String key = sequence[i] + sequence[i + 1] + sequence[i + 2];
             String aminoAcid = CodonDictionary.getAminoAcid(key);
