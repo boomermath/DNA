@@ -1,13 +1,11 @@
+package com.boomermath.dna;
+
 import java.util.HashMap;
 
 public class CodonDictionary {
     private static final HashMap<String, String> codons = new HashMap<>();
 
-    public static void init() {
-        if (codons.size() > 0) {
-            return;
-        }
-
+    static {
         codons.put("AAA", "Lysine");
         codons.put("AAG", "Lysine");
         codons.put("AAC", "Asparagine");
