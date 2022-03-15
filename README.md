@@ -19,7 +19,6 @@ RNA convertedDNA = dna.toRNA(); //convert to RNA
 String[] aminoAcids = rna.synthesizeAminoAcids(); //returns a string array with the amino acids in order, until the stop codon or the end of the array.
 
 //also if you want to manually get the amino acid for a specific codon
-CodonDictionary.init(); //initialize the dictionary
 String aminoAcid = CodonDictionary.getAminoAcid("UGA"); //get amino acid from codon
 
 System.out.println(aminoAcid); //prints "stop" because its a stop codon
